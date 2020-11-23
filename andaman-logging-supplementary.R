@@ -253,13 +253,25 @@ l2_e<-dom_smatree1 %>% select(species_ID,L2_evergreen) %>% arrange(-L2_evergreen
 sma<-Reduce(union,list(b_d,l1_d,l2_d,b_e,l1_e,l2_e)) #125 species
 
 table1_pole<-
-  dom_smatree1 %>% filter(species_ID %in% sma$species_ID) %>% select(species_ID,L2_deciduous,L1_deciduous,B_deciduous,L2_evergreen,L1_evergreen,B_evergreen)
+  dom_smatree1 %>%
+  filter(species_ID %in% sma$species_ID) %>%
+  select(species_ID,L2_deciduous,L1_deciduous,B_deciduous,L2_evergreen,L1_evergreen,B_evergreen)
 
+names(table1_pole) <- c("speciesID","L2(D,p)","L1(D,p)","B(D,p)","L2(E,p)","L1(E,p)","B(E,p)")
+names(table1_adult) <- c("speciesID","L2(D,a)","L1(D,a)","B(D,a)","L2(E,a)","L1(E,a)","B(E,a)")
 
-write.csv(x = table1_adult,
-          file = "output/tableS1_adulttrees.csv", row.names = FALSE)
-write.csv(x = table1_pole,
-          file = "output/tableS1_poletrees.csv", row.names = FALSE)
+table1_both <- inner_join(x = table1_pole,table1_adult)
+table1_adultsonly <- table1_adult %>% filter(!speciesID %in% table1_both$speciesID)
+table1_poleonly <- table1_pole %>% filter(!speciesID %in% table1_both$speciesID)
+
+sink("output/tableS1_andaman-logging.csv")
+print("Species that appeared as both pole-sized and adult-sized trees only\n")
+table1_both
+print("Species that appeared as pole-sized trees only\n")
+table1_poleonly
+print("Species that appeared as adult-sized trees only\n")
+table1_adultsonly
+sink()
 
 
 

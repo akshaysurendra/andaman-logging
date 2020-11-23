@@ -2,10 +2,9 @@
 # Akshay Surendra, Anand M Osuri, Jayashree Ratnam
 # August 2020
 
-#### Packages, data input, data prep ######
-#setwd("~/Desktop/draft/FEM manuscript/")
+#### Packages ######
 
-rm(list = ls())
+# rm(list = ls())
 library(vegan)
 library(tidyverse)
 library(gridExtra)
@@ -14,22 +13,40 @@ library(grid)
 library(ggsignif)
 library(cowplot)
 library(betareg)
+library(extrafont)
+# font_import()
+# loadfonts(device="win")
+fonts()
 
-#### ######
+### Table 1 #####
+
+db_fgeo <- read_csv("plot_characteristics.csv")
+
+tab1 <-
+  full_join(x = db_fgeo %>% group_by(LoggingTreatment,forest_type) %>% summarise(Nplots = n_distinct(plotID)),
+            y = db_fgeo %>%
+              group_by(LoggingTreatment,forest_type) %>%
+              summarise_at(.vars = c("temperatureBIOCLIM_degC","rainfallBIOCLIM_mmPerYr","elevSRTM30_m","slopeSRTM30_degree","distSettlement_m"),
+                           .funs = function(x) paste0(round(median(x,na.rm=T),1),
+                                                      " (",round(min(x,na.rm=T),1),
+                                                      "-",round(max(x,na.rm=T),1),")")),
+            by = c("forest_type","LoggingTreatment"))
+
+write_csv(x = tab1,path = "output/Table1_plotchar.csv")
+
+
+#### Data input and clean-up ####
+
 db0 <- read_csv("plotdata.csv")
+phenology <- read_csv("treecodes.csv")
+canopy_raw <- read_csv("canopy.csv")
 
-### Identifying and removing plots that are erroneously classified
-# (see supplementary.R script)
-removeplots<-c("BANL0303","BAT1P10","MAT1C6P09","MAT2C2P09")
+removeplots <- c("BANL0303","BAT1P10","MAT1C6P09","MAT2C2P09")
+### Identifying and removing plots that are erroneously classified, (see supplementary.R script)
 
-dbtmp0 <-
+dbtmp1 <-
   db0 %>%
-  filter(!plot_ID %in% removeplots) #### 4 plots removed
-
-### Re-level treatment, compute AGB, join phenology (D/E) & canopy data ####
-
-dbtmp <-
-  dbtmp0 %>%
+  filter(!plot_ID %in% removeplots) %>%
   mutate(treat = case_when(treatment ==      "TL" ~ "L2",
                            treatment == "OL_near" ~ "L1",
                            treatment ==  "OL_far" ~ "B",
@@ -37,31 +54,26 @@ dbtmp <-
          treat = factor(treat, levels = c("B","L1","L2")),
          forest_type = factor(forest_type, levels = c("deciduous","evergreen")),
          plot_ID = factor(plot_ID)) %>%
-  select(-treatment)
-
-dbtmp1 <-
-  dbtmp %>%
+  select(-treatment) %>%
   mutate(agb = data.frame(agbstem1 = ( (0.0673) * ((dbtmp$wd_m) * (dbtmp$dia1^2) * (dbtmp$height_m))^(0.976) ),
                           agbstem2 = ( (0.0673) * ((dbtmp$wd_m) * (dbtmp$dia2^2) * (dbtmp$height_m))^(0.976) ),
                           agbstem3 = ( (0.0673) * ((dbtmp$wd_m) * (dbtmp$dia3^2) * (dbtmp$height_m))^(0.976) )) %>%
            apply(X = ., MARGIN = 1, FUN = sum, na.rm = T),
-         agc_Mg = 0.5*agb/1000)
-#Chave 2014 pan-tropical formula used; Carbon fraction ~50% of AGB (Chave 2005)
+         agc_Mg = 0.5*agb/1000) %>% #Chave 2014 pan-tropical formula used; Carbon fraction ~50% of AGB (Chave 2005)
+  left_join(x = .,
+            y = phenology %>% select(species_ID,phenologyFIN))
 
-phenology <- read_csv("treecodes.csv")
-db <-
-  dbtmp1 %>%
-  left_join(x = .,y = phenology %>% select(species_ID,phenologyFIN))
 setdiff(x = unique(db$species_ID),
         y = unique(phenology$species_ID)) # only stump has no phenology
 
-
-cc <- read_csv("canopy.csv")
+cc <-
+  canopy_raw %>%
+  mutate(lowerstorey = apply(X = cc[,c(2:10)],
+                             MARGIN = 1,FUN = sum))
 cc$lowerstorey <- apply(X = cc[,c(2:10)],
                          MARGIN = 1,FUN = sum)
 cc$upperstorey <- apply(X = cc[,c(11:19)],
-                         MARGIN = 1,FUN = sum)
-## total canopy over 45 metres summed up by adding counts from 9 5-metre sections
+                         MARGIN = 1,FUN = sum) ## total canopy over 45 metres summed up by adding counts from 9 5-metre sections
 
 canopy <-
   cc %>%
@@ -75,10 +87,7 @@ canopy <-
   # right join as 4 plots already removed from db but not cc
   pivot_longer(cols = c("lowerstorey","upperstorey"),
                names_to = "strata",values_to = "ccover") %>%
-  mutate(ccover = ccover/100)
-  # percentage to proportion
-
-cbPalette <- rev(c("#999999","#56B4E9", "#F0E442","#D55E00"))
+  mutate(ccover = ccover/100) # percentage to proportion
 
 dbp <- modop <- modelF <- modeldf <- vector(mode = "list",length = 18)
 dbpsumm <-   vector(mode = "list",length = 18)
@@ -151,7 +160,7 @@ dbpsumm$stem_adult_evergreen <-
   mutate(ymin = y - 1.96*(ysd/sqrt(ns)), ymax = y + 1.96*(ysd/sqrt(ns)),
          forest_type = "evergreen")
 
-#### canopy cover ~ logging frequency (understory) ####
+#### canopy cover ~ logging frequency (understory and overstory) ####
 
 dbp$understory_deciduous <- canopy %>% filter(strata =="lowerstorey",
                                               forest_type=="deciduous")
@@ -455,7 +464,7 @@ perma3 <- adonis(formula = permadb %>% select(-plot_ID,-treat,-forest_type) ~ fo
 
 mop1<- jtools::export_summs(modop,digits.p = 2,
                             model.names = names(modop),
-                            to.file = "docx",file.name = "October 2020 - Major revision/model_output.docx")
+                            to.file = "docx",file.name = "output/Table_2_temp.docx")
 
 mop3<-data.frame(Fstat = round(do.call("rbind",modelF),4)) %>% rownames_to_column("modelname")
 mop4<-data.frame(df = round(do.call("rbind",modeldf),4)) %>% rownames_to_column("modelname")
@@ -475,39 +484,25 @@ betareg_predicted %>%
   add_row(100*(betareg_predicted[2,] - betareg_predicted[1,])) %>%  # L1 v/s B % change
   add_row(100*(betareg_predicted[3,] - betareg_predicted[1,]))      # L2 v/s B % change
 
-# write.csv(x = betareg_perchange[-c(1:3),],
-#           file = "October 2020 - Major revision/betareg_percentChange.csv",
-#           row.names = F)
-#
-# write.csv(x = full_join(mop3,mop4),
-#           file = "October 2020 - Major revision/model_output_Fdf.csv",
-#           row.names = F)
-## table 1A - model outputs ##
+ write.csv(x = betareg_perchange[-c(1:3),],
+           file = "output/Table2_Betareg_percentChange.csv",
+           row.names = F)
 
-# sink("October 2020 - Major revision/table1B_modelOP_permanova.csv")
-# perma1 %>% round(.,3) %>%  as.data.frame()
-# perma2 %>% round(.,3) %>%  as.data.frame()
-# perma3 %>% round(.,3) %>%  as.data.frame()
-# perma4 %>% round(.,3) %>%  as.data.frame()
-# sink()
+ write.csv(x = full_join(mop3,mop4),
+           file = "output/Table2_Fdf.csv",
+           row.names = F)
 
+ sink("output/tableS2_modelOP_permanova.csv")
+ perma1 %>% round(.,3) %>%  as.data.frame()
+ perma2 %>% round(.,3) %>%  as.data.frame()
+ perma3 %>% round(.,3) %>%  as.data.frame()
+ perma4 %>% round(.,3) %>%  as.data.frame()
+ sink()
 
 ##### plotting figures 2, 3 and 4 ####
 
 fig <- modop
 labelsu <- c("B","L1","L2")
-
-# dbpsumm <-
-# dbpsumm %>%
-#   map(.f = function(x) x %>% mutate(treat = case_when(treat=="B" & forest_type=="deciduous" ~ "B"#\n(12)",
-#                                                       treat=="B" & forest_type=="evergreen" ~ "B",#\n(12)",
-#                                                       treat=="L1" & forest_type=="deciduous" ~ "L1",#\n(18)",
-#                                                       treat=="L1" & forest_type=="evergreen" ~ "L1",#\n(11)",
-#                                                       treat=="L2" & forest_type=="deciduous" ~ "L2",#\n(12)",
-#                                                       treat=="L2" & forest_type=="evergreen" ~ "L2"#\n(7)"
-#                                                       ))
-#       )
-#
 
 fig[1:4] <-
   lapply(X = dbpsumm[1:4],
@@ -606,77 +601,65 @@ fig[[19]] <-
   annotate("text", x=-1.75, y=1.1, size=4, hjust=0,
            label = expression("composition ~ forest type*** R"^{2}*"=0.212"))
 
-fig2_toprow<-
-  cowplot::plot_grid(plotlist = fig[c("stem_pole_deciduous","stem_pole_evergreen",
-                                      "stem_adult_deciduous","stem_adult_evergreen")],
-                       nrow = 1,ncol = 4,
-                       labels = c("pole-tree density","",
-                                  "adult-tree density",""),label_fontface = "plain",label_size = 10)
+legendplot <- get_legend(plot = dbpsumm[1:2] %>% bind_rows() %>% ggplot(data = .) + geom_point(aes(y=y,x=treat,shape=forest_type)) + scale_shape_manual(name = "", values = c(1,16)) + theme_light())
 
-fig2_botrow<-
-  cowplot::plot_grid(plotlist = fig[c("understory_deciduous","understory_evergreen",
-                                        "overstory_deciduous","overstory_evergreen",
-                                        "AGB_deciduous","AGB_evergreen")],
-                       nrow = 1,ncol = 6,
-                       labels = c("understory cover","","overstory cover","","above-ground carbon",""),label_fontface = "plain",label_size = 10)
+###
 
+title1 <- ggdraw() + draw_label("a) Pole-tree density \n (0.01ha)",fontface = "plain",fontfamily = "Times New Roman",size = 10)
+title2 <- ggdraw() + draw_label("b) Adult-tree density \n (0.05ha)",fontface = "plain",fontfamily = "Times New Roman",size = 10)
+title3 <- ggdraw() + draw_label("c) Understory canopy \n (0: no cover - 1: full cover)",fontface = "plain",fontfamily = "Times New Roman",size = 10)
+title4 <- ggdraw() + draw_label("d) Overstory canopy \n (0: no cover - 1: full cover)",fontface = "plain",fontfamily = "Times New Roman",size = 10)
+title5 <- ggdraw() + draw_label("e) Above-ground carbon \n (MgC per ha)",fontface = "plain",fontfamily = "Times New Roman",size = 10)
 
-fig3<-
-  cowplot::plot_grid(plotlist = fig[c("richness_pole_deciduous","richness_pole_evergreen",
-                                      "richness_adult_deciduous","richness_adult_evergreen",
-                                      "decifrac_pole_deciduous","decifrac_pole_evergreen",
-                                      "decifrac_adult_deciduous","decifrac_adult_evergreen")],
-                     nrow = 2, ncol = 4,
-                labels = c("pole-tree richness","","adult-tree richness","","pole-tree deci-fraction","","adult-tree deci-fraction"),label_fontface = "plain",label_size = 10)
+fig2 <-
+plot_grid(
+  plot_grid( # row 1
+    ggplot() + theme_minimal(),
+    plot_grid(title1,plot_grid(fig$stem_pole_deciduous,fig$stem_pole_evergreen), ncol = 1, rel_heights = c(0.15,0.85)),
+    plot_grid(title2,plot_grid(fig$stem_adult_deciduous,fig$stem_adult_evergreen),ncol = 1, rel_heights = c(0.15,0.85)),
+    ggplot() + theme_minimal(),
+    ncol = 4,nrow=1, rel_widths = c(0.167,0.333,0.333,0.167)),
+  ggdraw(legendplot), # intermediate row for the legend
+  plot_grid( # row 2
+    plot_grid(title3,plot_grid(fig$understory_deciduous,fig$understory_evergreen), ncol = 1, rel_heights = c(0.15,0.85)),
+    plot_grid(title4,plot_grid(fig$overstory_deciduous,fig$overstory_evergreen), ncol = 1, rel_heights = c(0.15,0.85)),
+    plot_grid(title5,plot_grid(fig$AGB_deciduous,fig$AGB_evergreen), ncol = 1, rel_heights = c(0.15,0.85)),
+    ncol = 3,nrow=1,rel_widths = c(0.333,0.333,0.333)),
+  nrow = 3, ncol = 1,rel_heights = c(0.42,0.16,0.42))
+
+ggsave(filename = "output/figure2_andaman-logging.png",
+       plot = fig2,device = "png",width = 8,height = 6,units = "in",dpi = 600)
+
+#
+
+title6 <- ggdraw() + draw_label("a) Pole-tree richness \n (0.01ha)",fontface = "plain",fontfamily = "Times New Roman",size = 10)
+title7 <- ggdraw() + draw_label("b) Adult-tree richness \n (0.05ha)",fontface = "plain",fontfamily = "Times New Roman",size = 10)
+title8 <- ggdraw() + draw_label("c) Pole-tree deciduous fraction \n (0.01ha)",fontface = "plain",fontfamily = "Times New Roman",size = 10)
+title9 <- ggdraw() + draw_label("d) Adult-tree deciduous fraction \n (0.05ha)",fontface = "plain",fontfamily = "Times New Roman",size = 10)
+
+fig3 <-
+  plot_grid(
+    plot_grid( # row 1
+      plot_grid(title6,plot_grid(fig$richness_pole_deciduous,fig$richness_pole_evergreen), ncol = 1, rel_heights = c(0.15,0.85)),
+      plot_grid(title7,plot_grid(fig$richness_adult_deciduous,fig$richness_adult_evergreen),ncol = 1, rel_heights = c(0.15,0.85)),
+      ncol = 2,nrow=1, rel_widths = c(0.333,0.333)),
+    ggdraw(plot = legendplot,xlim = c(0,1),ylim = c(0,1)), # intermediate row for the legend
+    plot_grid( # row 2
+      plot_grid(title8,plot_grid(fig$decifrac_pole_deciduous,fig$decifrac_pole_evergreen), ncol = 1, rel_heights = c(0.15,0.85)),
+      plot_grid(title9,plot_grid(fig$decifrac_adult_deciduous,fig$decifrac_adult_evergreen), ncol = 1, rel_heights = c(0.15,0.85)),
+      ncol = 2,nrow=1,rel_widths = c(0.333,0.333)),
+    nrow = 3, ncol = 1,rel_heights = c(0.42,0.16,0.42))
+
+ggsave(filename = "output/figure3_andaman-logging.png",
+       plot = fig3,device = "png",width = 8,height = 6,units = "in",dpi = 600)
+
 fig4<-fig[[19]]
 
-
- for(i in 1:18)
- {
-   ggsave(plot = fig[[i]],filename = paste0("output/individual_fig",i,"_",names(fig)[i],".png"),
-          dpi = 600, units = "in", height = 3, width = 1.2)
- }
-
-legendplot <- get_legend(plot = dbpsumm[1:2] %>% bind_rows() %>% ggplot(data = .) + geom_point(aes(y=y,x=treat,shapeforest_type)) + scale_shape_manual(name = "", values = c(1,16)) + theme_light())
-
- ggsave(plot = legendplot,
-        filename = "output/legend.png",
-        device = "png", width = 4,height = 2.5,units = "in", dpi = 600)
-
-  ggsave(plot = fig2_toprow,
-         filename = "output/fig2_toprow_stemden.png",
-         device = "png", width = 4,height = 2.5,units = "in", dpi = 600)
-  ggsave(plot = fig2_botrow,
-         filename = "output/fig2_bottomrow_canopy_agb.png",
-         device = "png", width = 6,height = 2.5,units = "in", dpi = 600)
-  ggsave(plot = fig3,
-         filename = "output/fig3_specrich_decifrac.png",
-         device = "png", width = 4,height = 5,units = "in", dpi = 600)
-  ggsave(plot = fig4,
-         filename = "output/fig4_compo.png",
-         device = "png", width = 7, height = 7,units = "in", dpi = 600)
-
- ### Table 1 #####
-
-db_fgeo <- read_csv("plot_characteristics.csv")
-
- tab1 <-
-   full_join(x = db_fgeo %>% group_by(LoggingTreatment,forest_type) %>% summarise(Nplots = n_distinct(plotID)),
-             y = db_fgeo %>%
-               group_by(LoggingTreatment,forest_type) %>%
-               summarise_at(.vars = c("temperatureBIOCLIM_degC","rainfallBIOCLIM_mmPerYr","elevSRTM30_m","slopeSRTM30_degree","distSettlement_m"),
-                            .funs = function(x) paste0(round(median(x,na.rm=T),1),
-                                                       " (",round(min(x,na.rm=T),1),
-                                                       "-",round(max(x,na.rm=T),1),
-                                                       ")")
-               ),
-             by = c("forest_type","LoggingTreatment"))
-
-write_csv(x = tab1,path = "output/Table1_plotchar.csv")
+ggsave(filename = "output/figure4_andaman-logging.png",
+       plot = fig4,device = "png",width = 5,height = 5,units = "in",dpi = 600)
 
 
-#### SUPPLEMENTARY FIGURES and tables ######
-# see AndamansMScAS2020_supplementary.R
+#### SUPPLEMENTARY FIGURES and tables - see AndamansMScAS2020_supplementary.R
 
 
 

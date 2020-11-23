@@ -1,0 +1,56 @@
+[1] "Species that appeared as both pole-sized and adult-sized trees only\n"
+                speciesID L2(D,p) L1(D,p) B(D,p) L2(E,p) L1(E,p) B(E,p) L2(D,a) L1(D,a) B(D,a)
+1        Cleidion nitidum    2.08    2.50  38.33    1.43    0.45   1.25    0.25    0.89   2.25
+2   Diospyros pyrrhocarpa    0.42    1.11   1.25    1.43    2.27   0.83    0.92    0.28   0.83
+3        Dipterocarpus sp    0.00    0.00   0.00    0.71    0.45   2.50    0.08    0.00   0.08
+4     Drypetes longifolia    0.00    0.00   0.00    1.43    0.91   1.67    0.08    0.00   0.00
+5        Knema andamanica    0.00    0.00   0.00    0.00    0.45   4.17    0.00    0.00   0.00
+6 Lagerstroemia hypoleuca    2.92    0.00   0.00    0.71    0.00   0.42    6.00    2.72   1.17
+7      Sageraea elliptica    1.67   11.11   0.42    0.00    2.27   0.00    1.25    1.50   1.00
+8     Suregada multiflora    3.75    5.56   2.92    1.43    1.82   0.00    0.17    2.89   0.08
+  L2(E,a) L1(E,a) B(E,a)
+1    0.00    0.00   0.00
+2    1.29    0.55   0.33
+3    9.00    7.91   6.08
+4    2.71    0.45   2.00
+5    4.00    3.09   4.58
+6    1.14    1.91   0.58
+7    0.29    0.91   0.00
+8    0.29    1.27   0.00
+[1] "Species that appeared as pole-sized trees only\n"
+                      speciesID L2(D,p) L1(D,p) B(D,p) L2(E,p) L1(E,p) B(E,p)
+1             Actephila excelsa    0.00    0.00   0.00    0.00    0.00   2.50
+2         Aidia cochinchinensis    2.92    2.50   2.08    0.00    0.45   0.83
+3       Cleistanthus myrianthus    0.00    0.00   0.00    1.43    0.45   1.67
+4          Diospyros andamanica    0.00    0.00   0.00    2.86    2.73   0.83
+5              Diospyros kurzii    2.50    1.39   0.42    2.86    0.45   0.42
+6            Diospyros undulata    8.33    5.56   1.67    5.00    5.91   0.42
+7              Fagraea racemosa    0.00    0.00   0.00    0.00    0.00   2.92
+8                      Ixora sp    1.25    1.39   0.00    2.14    0.45   0.42
+9                       Leea sp    2.92    2.22   0.42    2.14    4.09   1.67
+10       Marsypopetalum crassum    0.00    0.00   0.00    0.00    2.73   0.00
+11           Miliusa andamanica    0.42    1.11   0.42    0.00    2.73   0.00
+12             Orophea hexandra    0.42    2.78   0.00    0.00    0.00   0.00
+13       Pterospermum aceroides    1.25    1.11   1.67    3.57    0.45   1.25
+14              Pterygota alata    0.00    0.00   0.00    2.14    0.91   0.83
+15         Rinorea benghalensis    0.42    4.44   1.67    0.71    0.00   0.00
+16 Tabernaemontana alternifolia    9.58    5.28  10.42    2.14    1.36   0.00
+17   Trigonostemon viridissimis    0.00    0.56   0.42    2.14    0.00   0.00
+[1] "Species that appeared as adult-sized trees only\n"
+                   speciesID L2(D,a) L1(D,a) B(D,a) L2(E,a) L1(E,a) B(E,a)
+1       Artocarpus chaplasha    0.00    0.06   0.08    1.43    1.36   1.33
+2        Dillenia andamanica    0.92    0.33   0.83    0.29    0.55   0.17
+3          Diospyros oocarpa    2.25    1.89   2.00    0.14    0.18   0.00
+4     Diospyros pilosiuscula    1.58    1.00   2.08    0.57    0.09   0.00
+5             Drypetes small    0.25    0.00   1.42    0.00    0.00   0.00
+6       Lannea coromandelica    1.08    0.06   0.50    0.00    0.18   0.33
+7        Miliusa horsfieldii    0.25    3.00   0.08    0.00    0.82   0.08
+8         Neonauclea gagaena    1.08    0.44   0.08    0.14    0.27   0.00
+9          Parishia insignis    0.25    0.00   0.08    3.43    1.55   1.75
+10     Planchonia andamanica    0.00    0.06   0.00    1.29    1.45   1.17
+11           Pometia pinnata    0.00    0.00   0.08    3.14    1.45   1.33
+12 Pterocarpus dalbergioides    2.42    3.94   4.33    1.14    1.64   1.33
+13   Pterocymbium tinctorium    0.58    1.50   1.08    0.86    0.64   1.67
+14        Terminalia bialata    0.67    2.28   1.67    0.00    0.09   0.25
+15        Terminalia procera    0.67    1.78   1.42    1.00    3.18   1.00
+16      Tetrameles nudiflora    0.42    0.83   1.33    0.43    1.55   0.33
