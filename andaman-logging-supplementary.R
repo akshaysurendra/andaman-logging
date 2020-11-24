@@ -208,8 +208,9 @@ db0$girth_eff <-
   apply(X = tmp1,MARGIN = 2,FUN = function(x) x^2) %>%
   rowSums() %>% sqrt()
 
-cutoff<-0.5 #50% of all stems
-samplingscaling<-c(12,12,18,11,12,7)
+cutoff <- 0.5 #50% of all stems
+samplingscaling <- c(12,12,18,11,12,7)
+
 dbdom<-db0 %>% filter(plotA=="Y" | plotB=="Y") #only in treefall plot
 
 ############# adult tree dominants
@@ -219,9 +220,9 @@ dom_medtree<-
   group_by(treat,forest_type,species_ID) %>%
   summarise(ntree = n()) %>%
   dcast(species_ID ~ treat + forest_type, value.var = "ntree") %>%
-  replace_na(replace = list(B_deciduous=0,B_evergreen=0,
-                            L1_deciduous=0,L1_evergreen=0,
-                            L2_deciduous=0,L2_evergreen=0)) %>%
+  replace_na(replace = list( B_deciduous=0,  B_evergreen=0,
+                            L1_deciduous=0, L1_evergreen=0,
+                            L2_deciduous=0, L2_evergreen=0)) %>%
   column_to_rownames("species_ID")
 
 dom_medtree1 <-
