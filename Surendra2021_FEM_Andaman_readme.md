@@ -22,10 +22,10 @@ Recommended citation for this dataset: Surendra A, Osuri M A, Ratnam J (2021) Da
 
 #### File List:
 
-  A) *plotdata.csv*: This file contains vegetation data corresponding to each plot across all three subplots (subplot A - 50x10m, subplotB - 10x10m and subplotC - 70x70m); subplots A and B were used in the associated manuscript but data from subplotC have not been analyzed
-  B) *plot_characteristics.csv*: This file contains slope, elevation, distance to the forest edge, distance to nearest neighbour, temperature (Worldclim) and rainfall (Worldclim) values, and the centroid (lat-long) for each sampled plot
-  C) *canopy.csv*: This file contains the canopy cover measured as presence (1) or absence (0) in 45 nearly 1-m intervals along the long-axis of the 50x10m plot; each column corresponds to the total counts in a 5m interval (maximum: 5 and minimum: 0), at two heights: <15m (L) and >20m (H)
-  D) *treecodes.csv*: This file contains information on each (morpho-)species encountered in our plots
+  1. *plotdata.csv*: This file contains vegetation data corresponding to each plot across all three subplots (subplot A - 50x10m, subplotB - 10x10m and subplotC - 70x70m); subplots A and B were used in the associated manuscript but data from subplotC have not been analyzed
+  2. *plot_characteristics.csv*: This file contains slope, elevation, distance to the forest edge, distance to nearest neighbour, temperature (Worldclim) and rainfall (Worldclim) values, and the centroid (lat-long) for each sampled plot
+  3. *canopy.csv*: This file contains the canopy cover measured as presence (1) or absence (0) in 45 nearly 1-m intervals along the long-axis of the 50x10m plot; each column corresponds to the total counts in a 5m interval (maximum: 5 and minimum: 0), at two heights: <15m (L) and >20m (H)
+  4. *treecodes.csv*: This file contains information on each (morpho-)species encountered in our plots
 
 **PlotID** is a key that can be used to join files A, B and C; file D can be joined with A using the code (and code_new) column
 
@@ -38,9 +38,9 @@ Within this, and 35m from two opposite edges of plotC is plotA, 50x10m subplot t
 
 ## METHODOLOGICAL INFORMATION
 
-**1. Methods used for collection/generation of data:** See methods section of https://doi.org/10.1016/j.foreco.2020.118791 ; plotC data has not been included in the manuscript. Plot C is 70x70m (0.49ha) in size and encircles the other two plots right at the centre, and all trees (and cut stumps) above 180cm girth within this larger plot have been have been identified and measured. 
+See methods section of https://doi.org/10.1016/j.foreco.2020.118791 ; plotC data has not been included in the manuscript. Plot C is 70x70m (0.49ha) in size and encircles the other two plots right at the centre, and all trees (and cut stumps) above 180cm girth within this larger plot have been have been identified and measured. 
 
-### (A) DATA-SPECIFIC INFORMATION FOR: plotdata.csv
+## (1) DATA-SPECIFIC INFORMATION FOR: plotdata.csv
   
   1. Number of variables: 19
   2. Number of cases/rows: 4303
@@ -69,7 +69,7 @@ type_plot: B -  stem measured in the innermost 10x10m subplot; A - adult tree me
 gf: T - tree, P - palm or cane (monocot)
 
 
-### (B) DATA-SPECIFIC INFORMATION FOR: plot_characteristics.csv
+## (2) DATA-SPECIFIC INFORMATION FOR: plot_characteristics.csv
   
   1. Number of variables: 11
   2. Number of cases/rows: 76
@@ -87,7 +87,7 @@ distSettlement_m - distance of the plot to the forest edge in meters
 temperature - average annual temperature extracted from WorldClim data (in degree Celsius)
 rainfall - total annual rainfall extracted from WorldClim data (in mm)
 
-### (C) DATA-SPECIFIC INFORMATION FOR: canopy.csv
+## (3) DATA-SPECIFIC INFORMATION FOR: canopy.csv
 
   1. Number of variables: 19
   2. Number of cases/rows: 76
@@ -114,7 +114,7 @@ C31_C35_H - overstory canopy (>20m) in the seventh five sampling locations (~1m 
 C36_C40_H - overstory canopy (>20m) in the eigth five sampling locations (~1m apart)
 C41_C45_H - overstory canopy (>20m) in the ninth five sampling locations (~1m apart)
 
-### (D) DATA-SPECIFIC INFORMATION FOR: treecodes.csv
+## (4) DATA-SPECIFIC INFORMATION FOR: treecodes.csv
 
   1. Number of variables: 8
   2. Number of cases/rows: 205
