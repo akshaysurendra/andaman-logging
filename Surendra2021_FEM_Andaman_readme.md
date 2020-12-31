@@ -79,16 +79,16 @@ See methods section of https://doi.org/10.1016/j.foreco.2020.118791 ; plotC data
   3. Missing data code: NA
   4. Variable list and description:
   
-plotID - unique ID for each of the plots
-forest_type - evergreen and deciduous forest type
-latitude, longitude - as is
-elevSTRM - elevation extracted from SRTM satellite data (30m resolution) in meters
-slopeSRTM - slope extracted from SRTM satellite data (30m resolution) in degrees
-distanceNearestNeighbour_m - distance of the nearest neighbouring plot in meters
-LoggingTreatment - three levels that indicate the logging history experienced by the plot B (baseline) L1 (once-logged) and L2 (twice-logged) same as in plotdata.csv
-distSettlement_m - distance of the plot to the forest edge in meters
-temperature - average annual temperature extracted from WorldClim data (in degree Celsius)
-rainfall - total annual rainfall extracted from WorldClim data (in mm)
+    plotID - unique ID for each of the plots
+    forest_type - evergreen and deciduous forest type
+    latitude, longitude - as is
+    elevSTRM - elevation extracted from SRTM satellite data (30m resolution) in meters
+    slopeSRTM - slope extracted from SRTM satellite data (30m resolution) in degrees
+    distanceNearestNeighbour_m - distance of the nearest neighbouring plot in meters
+    LoggingTreatment - three levels that indicate the logging history experienced by the plot B (baseline) L1 (once-logged) and L2 (twice-logged) same as in plotdata.csv
+    distSettlement_m - distance of the plot to the forest edge in meters
+    temperature - average annual temperature extracted from WorldClim data (in degree Celsius)
+    rainfall - total annual rainfall extracted from WorldClim data (in mm)
 
 ## (3) DATA-SPECIFIC INFORMATION FOR: canopy.csv
 
