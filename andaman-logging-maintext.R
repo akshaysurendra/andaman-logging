@@ -32,8 +32,7 @@ tab1 <-
                                                       "-",round(max(x,na.rm=T),1),")")),
             by = c("forest_type","LoggingTreatment"))
 
-write_csv(x = tab1,path = "output/Table1_plotchar.csv")
-
+# write_csv(x = tab1,path = "output/Table1_plotchar.csv")
 
 #### Data input and clean-up ####
 
@@ -44,39 +43,34 @@ canopy_raw <- read_csv("canopy.csv")
 removeplots <- c("BANL0303","BAT1P10","MAT1C6P09","MAT2C2P09")
 ### Identifying and removing plots that are erroneously classified, (see supplementary.R script)
 
-dbtmp1 <-
+db <-
   db0 %>%
   filter(!plot_ID %in% removeplots) %>%
-  mutate(treat = case_when(treatment ==      "TL" ~ "L2",
-                           treatment == "OL_near" ~ "L1",
-                           treatment ==  "OL_far" ~ "B",
-                           treatment =="baseline" ~ "B"),
-         treat = factor(treat, levels = c("B","L1","L2")),
+  mutate(treat = factor(treatment, levels = c("B","L1","L2")),
          forest_type = factor(forest_type, levels = c("deciduous","evergreen")),
          plot_ID = factor(plot_ID)) %>%
   select(-treatment) %>%
-  mutate(agb = data.frame(agbstem1 = ( (0.0673) * ((dbtmp$wd_m) * (dbtmp$dia1^2) * (dbtmp$height_m))^(0.976) ),
-                          agbstem2 = ( (0.0673) * ((dbtmp$wd_m) * (dbtmp$dia2^2) * (dbtmp$height_m))^(0.976) ),
-                          agbstem3 = ( (0.0673) * ((dbtmp$wd_m) * (dbtmp$dia3^2) * (dbtmp$height_m))^(0.976) )) %>%
-           apply(X = ., MARGIN = 1, FUN = sum, na.rm = T),
-         agc_Mg = 0.5*agb/1000) %>% #Chave 2014 pan-tropical formula used; Carbon fraction ~50% of AGB (Chave 2005)
+  mutate(dia1 = gbh_cm/pi, dia2 = gbh_cm_stem2/pi, dia3 = gbh_cm_stem3/pi,
+         agbstem1 = (0.0673 * wd_m * dia1^2 * height_m)^(0.976),
+         agbstem2 = (0.0673 * wd_m * dia2^2 * height_m)^(0.976),
+         agbstem3 = (0.0673 * wd_m * dia3^2 * height_m)^(0.976)) %>%
+  replace_na(list(agbstem1 = 0, agbstem2 = 0, agbstem3 = 0)) %>%
+  mutate(agb = agbstem1 + agbstem2 + agbstem3,
+         agc_Mg = 0.5 * agb/1000) %>% #Chave 2014 pan-tropical formula used; Carbon fraction ~50% of AGB (Chave 2005)
   left_join(x = .,
             y = phenology %>% select(species_ID,phenologyFIN))
 
 setdiff(x = unique(db$species_ID),
         y = unique(phenology$species_ID)) # only stump has no phenology
 
-cc <-
-  canopy_raw %>%
-  mutate(lowerstorey = apply(X = cc[,c(2:10)],
-                             MARGIN = 1,FUN = sum))
-cc$lowerstorey <- apply(X = cc[,c(2:10)],
+canopy_raw$lowerstorey <- apply(X = canopy_raw[, c(2:10)],
                          MARGIN = 1,FUN = sum)
-cc$upperstorey <- apply(X = cc[,c(11:19)],
-                         MARGIN = 1,FUN = sum) ## total canopy over 45 metres summed up by adding counts from 9 5-metre sections
+canopy_raw$upperstorey <- apply(X = canopy_raw[,c(11:19)],
+                         MARGIN = 1,FUN = sum)
+## total canopy over 45 metres summed up by adding counts from 9 5-metre sections
 
 canopy <-
-  cc %>%
+  canopy_raw %>%
   rename(plot_ID = "PLOT") %>%
   select(plot_ID,lowerstorey, upperstorey) %>%
   mutate(plot_ID = factor(plot_ID),

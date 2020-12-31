@@ -1,5 +1,5 @@
           Df SumsOfSqs MeanSqs F.Model    R2 Pr(>F)
-treat      2     1.745   0.872   2.541 0.069  0.003
+treat      2     1.745   0.872   2.541 0.069  0.002
 Residuals 69    23.687   0.343      NA 0.931     NA
 Total     71    25.432      NA      NA 1.000     NA
             Df SumsOfSqs MeanSqs F.Model    R2 Pr(>F)
@@ -9,6 +9,6 @@ Total       71    25.432      NA      NA 1.000     NA
                   Df SumsOfSqs MeanSqs F.Model    R2 Pr(>F)
 forest_type        1     5.382   5.382  20.226 0.212  0.001
 treat              2     1.686   0.843   3.169 0.066  0.001
-forest_type:treat  2     0.802   0.401   1.508 0.032  0.058
+forest_type:treat  2     0.802   0.401   1.508 0.032  0.067
 Residuals         66    17.562   0.266      NA 0.691     NA
 Total             71    25.432      NA      NA 1.000     NA
