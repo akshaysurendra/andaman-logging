@@ -78,9 +78,8 @@ See methods section of https://doi.org/10.1016/j.foreco.2020.118791 ; plotC data
   2. Number of cases/rows: 76
   3. Missing data code: NA
   4. Variable list and description:
-  
-    plotID - unique ID for each of the plots
-    forest_type - evergreen and deciduous forest type
+      1. plotID - unique ID for each of the plots
+      2. forest_type - evergreen and deciduous forest type
     latitude, longitude - as is
     elevSTRM - elevation extracted from SRTM satellite data (30m resolution) in meters
     slopeSRTM - slope extracted from SRTM satellite data (30m resolution) in degrees
