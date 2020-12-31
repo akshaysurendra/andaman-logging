@@ -46,26 +46,26 @@ See methods section of https://doi.org/10.1016/j.foreco.2020.118791 ; plotC data
   2. Number of cases/rows: 4303
   3. Missing data code: NA
   4. Variable list and description:
-    1. treatment - three levels that indicate the logging history experienced by the plot B (baseline) L1 (once-logged) and L2 (twice-logged)
-    2. forest_type - deciduous or evergreen forest type
-    3. plot_ID - unique ID for each of the plots
-    4. gbh_cm: tree girth ~1.3m from the ground (in cms)
-    5. gbh_cm_stem2: tree girth ~1.3m from the ground of the second stem, if present (in cms)
-    6. gbh_cm_stem3: tree girth ~1.3m from the ground of the third stem, if present (trees with >3 stems are collapsed into this 3rd stem) (in cms)
-    7. height_m: height measured in the field using a laser rangefinder - visually estimated for stems <6m (in metres)
-    8. code: unique code for each species, with first 3 letters indicate Genus, and the next three indicate Species, in most cases
-    9. species_ID: scientific name when known, local name if not, or a unique morphospecies code
-    10. family: Family to which that stem belongs to
-    11. ID_level: S: identified to species level, G: identified to Genus level, F: identified to Family level
-    12. plotA: any stem >30cm GBH measured within the 50x10m plot area (adult-trees)
-    13. plotB: any stem in the 10-30cm GBH range measured within the 10x10m plot area (juvenile-trees)
-    14. plotC: any stem >=180cm GBH measured within the 70x70cm plot area (large-trees, unpublished data)
-    15. wd_m: wood density using sp_m when available and ge_m if not, and if both are absent, plot-averaged values (g/cm^3)
-    16. wd_sd: variation in the wood density carried forward from species, genus or plot-specific values
-    17. WD_level: ID level at which wood density was calculated (S: species-specific, G: genus-specific, P: plot-specific)
-    18. agb_Mg: agb / (10^6) - tonnes of carbon
-    19. type_plot: B -  stem measured in the innermost 10x10m subplot; A - adult tree measured in remaining area of the treeline subplot (40x10m, with stems in the first 10x10m already measured in plot B); C - large tree (>=180cm GBH) measured in the outermost 70x70m subplot circumambulating the other two subplots, excluding large trees that were already measured in the inner plots
-    20. gf: T - tree, P - palm or cane (monocot)
+      1. treatment - three levels that indicate the logging history experienced by the plot B (baseline) L1 (once-logged) and L2 (twice-logged)
+      2. forest_type - deciduous or evergreen forest type
+      3. plot_ID - unique ID for each of the plots
+      4. gbh_cm: tree girth ~1.3m from the ground (in cms)
+      5. gbh_cm_stem2: tree girth ~1.3m from the ground of the second stem, if present (in cms)
+      6. gbh_cm_stem3: tree girth ~1.3m from the ground of the third stem, if present (trees with >3 stems are collapsed into this 3rd stem) (in cms)
+      7. height_m: height measured in the field using a laser rangefinder - visually estimated for stems <6m (in metres)
+      8. code: unique code for each species, with first 3 letters indicate Genus, and the next three indicate Species, in most cases
+      9. species_ID: scientific name when known, local name if not, or a unique morphospecies code
+      10. family: Family to which that stem belongs to
+      11. ID_level: S: identified to species level, G: identified to Genus level, F: identified to Family level
+      12. plotA: any stem >30cm GBH measured within the 50x10m plot area (adult-trees)
+      13. plotB: any stem in the 10-30cm GBH range measured within the 10x10m plot area (juvenile-trees)
+      14. plotC: any stem >=180cm GBH measured within the 70x70cm plot area (large-trees, unpublished data)
+      15. wd_m: wood density using sp_m when available and ge_m if not, and if both are absent, plot-averaged values (g/cm^3)
+      16. wd_sd: variation in the wood density carried forward from species, genus or plot-specific values
+      17. WD_level: ID level at which wood density was calculated (S: species-specific, G: genus-specific, P: plot-specific)
+      18. agb_Mg: agb / (10^6) - tonnes of carbon
+      19. type_plot: B -  stem measured in the innermost 10x10m subplot; A - adult tree measured in remaining area of the treeline subplot (40x10m, with stems in the first 10x10m already measured in plot B); C - large tree (>=180cm GBH) measured in the outermost 70x70m subplot circumambulating the other two subplots, excluding large trees that were already measured in the inner plots
+      20. gf: T - tree, P - palm or cane (monocot)
 
 
 ## (2) DATA-SPECIFIC INFORMATION FOR: plot_characteristics.csv
@@ -91,24 +91,24 @@ See methods section of https://doi.org/10.1016/j.foreco.2020.118791 ; plotC data
   2. Number of cases/rows: 76
   3. Missing data code: NA
   4. Variable list and description:
-    1. C1_C5_L - understory canopy (<15m) in the first five sampling locations (~1m apart)
-    2. C6_C10_L - understory canopy (<15m) in the second five sampling locations (~1m apart)
-    3. C11_C15_L - understory canopy (<15m) in the third five sampling locations (~1m apart)
-    4. C16_C20_L - understory canopy (<15m) in the fourth five sampling locations (~1m apart)
-    5. C21_C25_L - understory canopy (<15m) in the fifth five sampling locations (~1m apart)
-    6. C26_C30_L - understory canopy (<15m) in the sixth five sampling locations (~1m apart)
-    7. C31_C35_L - understory canopy (<15m) in the seventh five sampling locations (~1m apart)
-    8. C36_C40_L - understory canopy (<15m) in the eigth five sampling locations (~1m apart)
-    9. C41_C45_L - understory canopy (<15m) in the ninth five sampling locations (~1m apart)
-    10. C1_C5_H - overstory canopy (>20m) in the first five sampling locations (~1m apart)
-    11. C6_C10_H - overstory canopy (>20m) in the second five sampling locations (~1m apart)
-    12. C11_C15_H - overstory canopy (>20m) in the third five sampling locations (~1m apart)
-    13. C16_C20_H - overstory canopy (>20m) in the fourth five sampling locations (~1m apart)
-    14. C21_C25_H - overstory canopy (>20m) in the fifth five sampling locations (~1m apart)
-    15. C26_C30_H - overstory canopy (>20m) in the sixth five sampling locations (~1m apart)
-    16. C31_C35_H - overstory canopy (>20m) in the seventh five sampling locations (~1m apart)
-    17. C36_C40_H - overstory canopy (>20m) in the eigth five sampling locations (~1m apart)
-    18. C41_C45_H - overstory canopy (>20m) in the ninth five sampling locations (~1m apart)
+      1. C1_C5_L - understory canopy (<15m) in the first five sampling locations (~1m apart)
+      2. C6_C10_L - understory canopy (<15m) in the second five sampling locations (~1m apart)
+      3. C11_C15_L - understory canopy (<15m) in the third five sampling locations (~1m apart)
+      4. C16_C20_L - understory canopy (<15m) in the fourth five sampling locations (~1m apart)
+      5. C21_C25_L - understory canopy (<15m) in the fifth five sampling locations (~1m apart)
+      6. C26_C30_L - understory canopy (<15m) in the sixth five sampling locations (~1m apart)
+      7. C31_C35_L - understory canopy (<15m) in the seventh five sampling locations (~1m apart)
+      8. C36_C40_L - understory canopy (<15m) in the eigth five sampling locations (~1m apart)
+      9. C41_C45_L - understory canopy (<15m) in the ninth five sampling locations (~1m apart)
+      10. C1_C5_H - overstory canopy (>20m) in the first five sampling locations (~1m apart)
+      11. C6_C10_H - overstory canopy (>20m) in the second five sampling locations (~1m apart)
+      12. C11_C15_H - overstory canopy (>20m) in the third five sampling locations (~1m apart)
+      13. C16_C20_H - overstory canopy (>20m) in the fourth five sampling locations (~1m apart)
+      14. C21_C25_H - overstory canopy (>20m) in the fifth five sampling locations (~1m apart)
+      15. C26_C30_H - overstory canopy (>20m) in the sixth five sampling locations (~1m apart)
+      16. C31_C35_H - overstory canopy (>20m) in the seventh five sampling locations (~1m apart)
+      17. C36_C40_H - overstory canopy (>20m) in the eigth five sampling locations (~1m apart)
+      18. C41_C45_H - overstory canopy (>20m) in the ninth five sampling locations (~1m apart)
 
 ## (4) DATA-SPECIFIC INFORMATION FOR: treecodes.csv
 
@@ -116,11 +116,11 @@ See methods section of https://doi.org/10.1016/j.foreco.2020.118791 ; plotC data
   2. Number of cases/rows: 205
   3. Missing data code: NA
   4. Variable list and description:
-    1. species_ID - genus and species of identified species higher taxonomic identities (Genus, Family) or morphospecies name used to identify the species
-    2. phenology_fromParkinson_fromfieldExpIfNotInParkinson - phenology status obtained by compiling information from Flora of the Andaman Islands (Parkinson, 1923), field observations and discussion with experts; E or D indicated Deciduous or Evergreen phenology where trees with over a month of leaflessness was deemed deciduous; the suffix fin was used when the phenology status was available in the flora and confirmed in the field and tmp was used when it was based on field observations alone; NA was used for higher taxonomic groups that contained species with mixed phenology within it or when the phenology of the morphospecies was not known
-    3. phenologyFIN - for our study we collapsed tmp and fin suffixes and considered NA to be evergreen to reduce any Type 1 error since our null hypothesis was no change in deciduousness with logging (in the associated article)
-    4. code_new - 6 letter code identical to code column in file (A)
-    5. id_level_correct - the highest taxonomic level to which this morphospecies is identified - S species; G Genus; F Family; Climber liana of uknown taxonomic identity; NA no information
-    6. family - Family to which the morphospecies belongs to, if known
-    7. habit - tree or treelet (included); monocots include palms and cane (not included); NA includes climbers or a logging stump (not included)
-    8. commercial - if the species of tree is of commercial value; Y - yes; N - no; YNC - yes but not currently logged; NA - logging stump where taxonomic identity is not known
+      1. species_ID - genus and species of identified species higher taxonomic identities (Genus, Family) or morphospecies name used to identify the species
+      2. phenology_fromParkinson_fromfieldExpIfNotInParkinson - phenology status obtained by compiling information from Flora of the Andaman Islands (Parkinson, 1923), field observations and discussion with experts; E or D indicated Deciduous or Evergreen phenology where trees with over a month of leaflessness was deemed deciduous; the suffix fin was used when the phenology status was available in the flora and confirmed in the field and tmp was used when it was based on field observations alone; NA was used for higher taxonomic groups that contained species with mixed phenology within it or when the phenology of the morphospecies was not known
+      3. phenologyFIN - for our study we collapsed tmp and fin suffixes and considered NA to be evergreen to reduce any Type 1 error since our null hypothesis was no change in deciduousness with logging (in the associated article)
+      4. code_new - 6 letter code identical to code column in file (A)
+      5. id_level_correct - the highest taxonomic level to which this morphospecies is identified - S species; G Genus; F Family; Climber liana of uknown taxonomic identity; NA no information
+      6. family - Family to which the morphospecies belongs to, if known
+      7. habit - tree or treelet (included); monocots include palms and cane (not included); NA includes climbers or a logging stump (not included)
+      8. commercial - if the species of tree is of commercial value; Y - yes; N - no; YNC - yes but not currently logged; NA - logging stump where taxonomic identity is not known
