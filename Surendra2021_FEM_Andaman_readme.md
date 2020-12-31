@@ -46,10 +46,10 @@ See methods section of https://doi.org/10.1016/j.foreco.2020.118791 ; plotC data
   2. Number of cases/rows: 4303
   3. Missing data code: NA
   4. Variable list and description:
-    + treatment - three levels that indicate the logging history experienced by the plot B (baseline) L1 (once-logged) and L2 (twice-logged)
-    + forest_type - deciduous or evergreen forest type
-    + plot_ID - unique ID for each of the plots
-    + gbh_cm: tree girth ~1.3m from the ground (in cms)
+    * treatment - three levels that indicate the logging history experienced by the plot B (baseline) L1 (once-logged) and L2 (twice-logged)
+    * forest_type - deciduous or evergreen forest type
+    * plot_ID - unique ID for each of the plots
+    * gbh_cm: tree girth ~1.3m from the ground (in cms)
     + gbh_cm_stem2: tree girth ~1.3m from the ground of the second stem, if present (in cms)
     + gbh_cm_stem3: tree girth ~1.3m from the ground of the third stem, if present (trees with >3 stems are collapsed into this 3rd stem) (in cms)
     + height_m: height measured in the field using a laser rangefinder - visually estimated for stems <6m (in metres)
