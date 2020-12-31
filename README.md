@@ -1,4 +1,0 @@
-# Varying impacts of logging frequency on tree communities and carbon storage across evergreen and deciduous tropical forests in the Andaman Islands, India
-This repository contains R scripts used to analyze/visualize data ([data source](https://doi.org/10.5061/dryad.1c59zw3rp)) and create plots/tables in [Surendra, Osuri and Ratnam (2021)](https://www.researchgate.net/publication/346405145_Varying_impacts_of_logging_frequency_on_tree_communities_and_carbon_storage_across_evergreen_and_deciduous_tropical_forests_in_the_Andaman_Islands_India?_sg=DoVqrbeRGvYLGZeIuqvPzF7afzKgx21J4GR5Ozejya9U28P18Dfq3bPSeeh8txjEl7GRPGMcagZlOxIOasFeKE2obAqzID8wYXBfh5Rw.zZ3dS8sLunTUmRc3ajgW8GL3OwWx9q44vkgH5p4mRlZYT-BSZaD6b6_ZEyDqjTc-bfZmtKGXiNDb7sofgD5t0A). Please feel free [to reach out to me](https://akshaysurendra.wordpress.com/) if you have feedback, or if you want to chat about Andaman Islands or forests :)
-
-
