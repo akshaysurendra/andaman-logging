@@ -46,27 +46,29 @@ See methods section of https://doi.org/10.1016/j.foreco.2020.118791 ; plotC data
   2. Number of cases/rows: 4303
   3. Missing data code: NA
   4. Variable list and description:
-
-treatment - three levels that indicate the logging history experienced by the plot B (baseline) L1 (once-logged) and L2 (twice-logged)
-forest_type - deciduous or evergreen forest type
-plot_ID - unique ID for each of the plots
-gbh_cm: tree girth ~1.3m from the ground (in cms)
-gbh_cm_stem2: tree girth ~1.3m from the ground of the second stem, if present (in cms)
-gbh_cm_stem3: tree girth ~1.3m from the ground of the third stem, if present (trees with >3 stems are collapsed into this 3rd stem) (in cms)
-height_m: height measured in the field using a laser rangefinder - visually estimated for stems <6m (in metres)
-code: unique code for each species, with first 3 letters indicate Genus, and the next three indicate Species, in most cases
-species_ID: scientific name when known, local name if not, or a unique morphospecies code
-family: Family to which that stem belongs to
-ID_level: S: identified to species level, G: identified to Genus level, F: identified to Family level
-plotA: any stem >30cm GBH measured within the 50x10m plot area (adult-trees)
-plotB: any stem in the 10-30cm GBH range measured within the 10x10m plot area (juvenile-trees)
-plotC: any stem >=180cm GBH measured within the 70x70cm plot area (large-trees, unpublished data)
-wd_m: wood density using sp_m when available and ge_m if not, and if both are absent, plot-averaged values (g/cm^3)
-wd_sd: variation in the wood density carried forward from species, genus or plot-specific values
-WD_level: ID level at which wood density was calculated (S: species-specific, G: genus-specific, P: plot-specific)
-agb_Mg: agb / (10^6) - tonnes of carbon
-type_plot: B -  stem measured in the innermost 10x10m subplot; A - adult tree measured in remaining area of the treeline subplot (40x10m, with stems in the first 10x10m already measured in plot B); C - large tree (>=180cm GBH) measured in the outermost 70x70m subplot circumambulating the other two subplots, excluding large trees that were already measured in the inner plots
-gf: T - tree, P - palm or cane (monocot)
+    + treatment - three levels that indicate the logging history experienced by the plot B (baseline) L1 (once-logged) and L2 (twice-logged)
+    + forest_type - deciduous or evergreen forest type
+    + plot_ID - unique ID for each of the plots
+    + gbh_cm: tree girth ~1.3m from the ground (in cms)
+    + gbh_cm_stem2: tree girth ~1.3m from the ground of the second stem, if present (in cms)
+    + gbh_cm_stem3: tree girth ~1.3m from the ground of the third stem, if present (trees with >3 stems are collapsed into this 3rd stem) (in cms)
+    + height_m: height measured in the field using a laser rangefinder - visually estimated for stems <6m (in metres)
+    + code: unique code for each species, with first 3 letters indicate Genus, and the next three indicate Species, in most cases
+    + species_ID: scientific name when known, local name if not, or a unique morphospecies code
+    + family: Family to which that stem belongs to
+    + ID_level: S: identified to species level, G: identified to Genus level, F: identified to Family level
+    + plotA: any stem >30cm GBH measured within the 50x10m plot area (adult-trees)
+    + plotB: any stem in the 10-30cm GBH range measured within the 10x10m plot area (juvenile-trees)
+    + plotC: any stem >=180cm GBH measured within the 70x70cm plot area (large-trees, unpublished data)
+    + wd_m: wood density using sp_m when available and ge_m if not, and if both are absent, plot-averaged values (g/cm^3)
+    + wd_sd: variation in the wood density carried forward from species, genus or plot-specific values
+    + WD_level: ID level at which wood density was calculated (S: species-specific, G: genus-specific, P: plot-specific)
+    + agb_Mg: agb / (10^6) - tonnes of carbon
+    + type_plot:
+      B -  stem measured in the innermost 10x10m subplot
+      A - adult tree measured in remaining area of the treeline subplot (40x10m, with stems in the first 10x10m already measured in plot B)
+      C - large tree (>=180cm GBH) measured in the outermost 70x70m subplot circumambulating the other two subplots, excluding large trees that were already measured in the inner plots
+    + gf: T - tree, P - palm or cane (monocot)
 
 
 ## (2) DATA-SPECIFIC INFORMATION FOR: plot_characteristics.csv
